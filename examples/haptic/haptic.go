@@ -39,7 +39,7 @@ func main() {
 			panic(err)
 		}
 
-		// Print out effects and capabilities that are supported by device.
+		// Print out effects and capabilities that are supported by the haptic device.
 		printSupportedEffects(h)
 
 		supported, err := h.Query()
@@ -223,7 +223,7 @@ func main() {
 	}
 }
 
-// printSupportedEffects display information about the haptic device.
+// printSupportedEffects prints out effects and capabilities that are supported by the haptic device.
 func printSupportedEffects(h *sdl.Haptic) {
 	ne, err := h.NumEffects()
 	if err != nil {

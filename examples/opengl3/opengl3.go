@@ -71,7 +71,7 @@ func main() {
 		panic(err)
 	}
 	defer window.Destroy()
-	context, err = sdl.GLCreateContext(window)
+	context, err = window.GLCreateContext()
 	if err != nil {
 		panic(err)
 	}
@@ -136,7 +136,7 @@ func main() {
 			}
 		}
 		drawgl()
-		sdl.GLSwapWindow(window)
+		window.GLSwap()
 	}
 }
 

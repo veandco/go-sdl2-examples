@@ -3,12 +3,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/veandco/go-sdl2/sdl"
 	"os"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 var winTitle string = "Go-SDL2 TestWaitEvent"
-var winWidth, winHeight int = 800, 600
+var winWidth, winHeight int32 = 800, 600
 
 const pushTime uint32 = 1000 // number of milliseconds between event pushes
 
@@ -38,8 +39,13 @@ func run() int {
 	defer renderer.Destroy()
 
 	var peepArray []sdl.Event = make([]sdl.Event, 2)
-	peepArray[0] = &sdl.UserEvent{sdl.USEREVENT, sdl.GetTicks(), window.GetID(), 1331, nil, nil}
-	peepArray[1] = &sdl.UserEvent{sdl.USEREVENT, sdl.GetTicks(), window.GetID(), 10101, nil, nil}
+	id, err := window.GetID()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to get window ID: %s\n", err)
+		return 3
+	}
+	peepArray[0] = &sdl.UserEvent{sdl.USEREVENT, sdl.GetTicks(), id, 1331, nil, nil}
+	peepArray[1] = &sdl.UserEvent{sdl.USEREVENT, sdl.GetTicks(), id, 10101, nil, nil}
 
 	running = true
 	lastPushTime := sdl.GetTicks()
@@ -50,7 +56,7 @@ func run() int {
 			numEventsHandled, err := sdl.PeepEvents(peepArray, sdl.ADDEVENT, sdl.FIRSTEVENT, sdl.LASTEVENT)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "PeepEvents error: %s\n", err)
-				return 3
+				return 4
 			} else {
 				fmt.Printf("Successful push of %d events\n", numEventsHandled)
 			}
@@ -69,7 +75,7 @@ func run() int {
 			case *sdl.MouseWheelEvent:
 				fmt.Printf("[%d ms] MouseWheel\ttype:%d\tid:%d\tx:%d\ty:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y)
-			case *sdl.KeyUpEvent:
+			case *sdl.KeyboardEvent:
 				fmt.Printf("[%d ms] Keyboard\ttype:%d\tsym:%c\tmodifiers:%d\tstate:%d\trepeat:%d\n",
 					t.Timestamp, t.Type, t.Keysym.Sym, t.Keysym.Mod, t.State, t.Repeat)
 			case *sdl.UserEvent:

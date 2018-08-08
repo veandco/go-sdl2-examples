@@ -3,12 +3,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/veandco/go-sdl2/sdl"
 	"os"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 var winTitle string = "Go-SDL2 TestWaitEvent"
-var winWidth, winHeight int = 800, 600
+var winWidth, winHeight int32 = 800, 600
 
 const pushTime uint32 = 1000 // number of milliseconds between event pushes
 
@@ -44,12 +45,16 @@ func run() int {
 		// Push a UserEvent every second
 		if lastPushTime+pushTime < sdl.GetTicks() {
 			lastPushTime = sdl.GetTicks()
-			pEvent := &sdl.UserEvent{sdl.USEREVENT, sdl.GetTicks(), window.GetID(), 1331, nil, nil}
+			id, err := window.GetID()
+			if err != nil {
+				return 3
+			}
+			pEvent := &sdl.UserEvent{sdl.USEREVENT, sdl.GetTicks(), id, 1331, nil, nil}
 
 			retVal, err := sdl.PushEvent(pEvent) // Here's where the event is actually pushed
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Failed to push event: %s\n", err)
-				return 3
+				return 4
 			}
 
 			if retVal {
@@ -72,7 +77,7 @@ func run() int {
 			case *sdl.MouseWheelEvent:
 				fmt.Printf("[%d ms] MouseWheel\ttype:%d\tid:%d\tx:%d\ty:%d\n",
 					t.Timestamp, t.Type, t.Which, t.X, t.Y)
-			case *sdl.KeyUpEvent:
+			case *sdl.KeyboardEvent:
 				fmt.Printf("[%d ms] Keyboard\ttype:%d\tsym:%c\tmodifiers:%d\tstate:%d\trepeat:%d\n",
 					t.Timestamp, t.Type, t.Keysym.Sym, t.Keysym.Mod, t.State, t.Repeat)
 			case *sdl.UserEvent:

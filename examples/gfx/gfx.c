@@ -9,6 +9,7 @@ int main()
 {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	SDL_Event event;
 	Sint16 vx[] = { 100, 300, 200 };
 	Sint16 vy[] = { 100, 100, 300 };
 
@@ -27,6 +28,7 @@ int main()
 	filledPolygonColor(renderer, vx, vy, 3, 0xFFFF0000);
 
 	SDL_RenderPresent(renderer);
+	SDL_PollEvent(&event);
 	SDL_Delay(3000);
 
 	SDL_DestroyRenderer(renderer);

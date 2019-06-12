@@ -136,6 +136,7 @@ func run() int {
 	})
 
 	sdl.Do(func() {
+		sdl.PollEvent()
 		sdl.Delay(2000)
 	})
 

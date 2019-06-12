@@ -58,6 +58,7 @@ func run() int {
 	renderer.Copy(texture, &src, &dst)
 	renderer.Present()
 
+	sdl.PollEvent()
 	sdl.Delay(2000)
 
 	return 0

@@ -48,6 +48,7 @@ func run() int {
 	gfx.StringColor(renderer, 16, 16, "GFX Demo", sdl.Color{0, 255, 0, 255})
 
 	renderer.Present()
+	sdl.PollEvent()
 	sdl.Delay(3000)
 
 	return 0

@@ -46,6 +46,8 @@ int main()
 	SDL_RenderCopy(renderer, texture, &src, &dst);
 	SDL_RenderPresent(renderer);
 
+	SDL_Event event;
+	SDL_PollEvent(&event);
 	SDL_Delay(2000);
 
 	SDL_DestroyTexture(texture);

@@ -55,6 +55,7 @@ func run() int {
 
 	// Show the pixels for a while
 	window.UpdateSurface()
+	sdl.PollEvent()
 	sdl.Delay(3000)
 
 	return 0

@@ -4,8 +4,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/veandco/go-sdl2/sdl"
 	"os"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 var winTitle string = "Go-SDL2 Render"
@@ -62,7 +63,7 @@ func run() int {
 	renderer.FillRects(rects)
 
 	renderer.Present()
-
+	sdl.PollEvent()
 	sdl.Delay(2000)
 
 	return 0

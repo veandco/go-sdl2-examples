@@ -37,7 +37,7 @@ func run() (err error) {
 			case *sdl.JoyBallEvent:
 				fmt.Println("Joystick", t.Which, "trackball moved by", t.XRel, t.YRel)
 			case *sdl.JoyButtonEvent:
-				if t.Type == sdl.PRESSED {
+				if t.State == sdl.PRESSED {
 					fmt.Println("Joystick", t.Which, "button", t.Button, "pressed")
 				} else {
 					fmt.Println("Joystick", t.Which, "button", t.Button, "released")
@@ -69,7 +69,7 @@ func run() (err error) {
 				fmt.Println("Joystick", t.Which, "hat", t.Hat, "moved to", position, "position")
 			case *sdl.JoyDeviceAddedEvent:
 				// Open joystick for use
-				joysticks[int(t.Which)] = sdl.JoystickOpen(t.Which)
+				joysticks[int(t.Which)] = sdl.JoystickOpen(int(t.Which))
 				if joysticks[int(t.Which)] != nil {
 					fmt.Println("Joystick", t.Which, "connected")
 				}

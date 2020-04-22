@@ -62,7 +62,7 @@ func run() int {
 				fmt.Printf("[%d ms] JoyHat\ttype:%d\twhich:%d\that:%d\tvalue:%d\n",
 					t.Timestamp, t.Type, t.Which, t.Hat, t.Value)
 			case *sdl.JoyDeviceAddedEvent:
-				joysticks[int(t.Which)] = sdl.JoystickOpen(t.Which)
+				joysticks[int(t.Which)] = sdl.JoystickOpen(int(t.Which))
 				if joysticks[int(t.Which)] != nil {
 					fmt.Printf("Joystick %d connected\n", t.Which)
 				}

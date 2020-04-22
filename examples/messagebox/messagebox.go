@@ -28,7 +28,6 @@ func main() {
 		nil,
 		"example message box",
 		"select a button",
-		int32(len(buttons)),
 		buttons,
 		&colorScheme,
 	}

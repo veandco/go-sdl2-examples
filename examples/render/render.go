@@ -34,37 +34,48 @@ func run() int {
 	}
 	defer renderer.Destroy()
 
-	renderer.Clear()
+	running := true
 
-	renderer.SetDrawColor(255, 255, 255, 255)
-	renderer.DrawPoint(150, 300)
+	for running {
+		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+			switch event.(type) {
+			case *sdl.QuitEvent:
+				running = false
+			}
+		}
 
-	renderer.SetDrawColor(0, 0, 255, 255)
-	renderer.DrawLine(0, 0, 200, 200)
+		renderer.SetDrawColor(0, 0, 0, 255)
+		renderer.Clear()
 
-	points = []sdl.Point{{0, 0}, {100, 300}, {100, 300}, {200, 0}}
-	renderer.SetDrawColor(255, 255, 0, 255)
-	renderer.DrawLines(points)
+		renderer.SetDrawColor(255, 255, 255, 255)
+		renderer.DrawPoint(150, 300)
 
-	rect = sdl.Rect{300, 0, 200, 200}
-	renderer.SetDrawColor(255, 0, 0, 255)
-	renderer.DrawRect(&rect)
+		renderer.SetDrawColor(0, 0, 255, 255)
+		renderer.DrawLine(0, 0, 200, 200)
 
-	rects = []sdl.Rect{{400, 400, 100, 100}, {550, 350, 200, 200}}
-	renderer.SetDrawColor(0, 255, 255, 255)
-	renderer.DrawRects(rects)
+		points = []sdl.Point{{0, 0}, {100, 300}, {100, 300}, {200, 0}}
+		renderer.SetDrawColor(255, 255, 0, 255)
+		renderer.DrawLines(points)
 
-	rect = sdl.Rect{250, 250, 200, 200}
-	renderer.SetDrawColor(0, 255, 0, 255)
-	renderer.FillRect(&rect)
+		rect = sdl.Rect{300, 0, 200, 200}
+		renderer.SetDrawColor(255, 0, 0, 255)
+		renderer.DrawRect(&rect)
 
-	rects = []sdl.Rect{{500, 300, 100, 100}, {200, 300, 200, 200}}
-	renderer.SetDrawColor(255, 0, 255, 255)
-	renderer.FillRects(rects)
+		rects = []sdl.Rect{{400, 400, 100, 100}, {550, 350, 200, 200}}
+		renderer.SetDrawColor(0, 255, 255, 255)
+		renderer.DrawRects(rects)
 
-	renderer.Present()
-	sdl.PollEvent()
-	sdl.Delay(2000)
+		rect = sdl.Rect{250, 250, 200, 200}
+		renderer.SetDrawColor(0, 255, 0, 255)
+		renderer.FillRect(&rect)
+
+		rects = []sdl.Rect{{500, 300, 100, 100}, {200, 300, 200, 200}}
+		renderer.SetDrawColor(255, 0, 255, 255)
+		renderer.FillRects(rects)
+
+		renderer.Present()
+		sdl.Delay(16)
+	}
 
 	return 0
 }

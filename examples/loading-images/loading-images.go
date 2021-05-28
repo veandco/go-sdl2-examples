@@ -48,7 +48,7 @@ func run() (err error) {
 	// Draw the BMP image on the first half of the window
 	bmpImage.BlitScaled(nil, surface, &sdl.Rect{X: 0, Y: 0, W: 400, H: 400})
 
-	// Draw the BMP image on the first half of the window
+	// Draw the PNG image on the first half of the window
 	pngImage.BlitScaled(nil, surface, &sdl.Rect{X: 400, Y: 0, W: 400, H: 400})
 
 	// Update the window surface with what we have drawn

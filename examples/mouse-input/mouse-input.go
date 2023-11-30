@@ -25,17 +25,17 @@ func run() (err error) {
 	for running {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
-			case *sdl.QuitEvent:
+			case sdl.QuitEvent:
 				running = false
-			case *sdl.MouseMotionEvent:
+			case sdl.MouseMotionEvent:
 				fmt.Println("Mouse", t.Which, "moved by", t.XRel, t.YRel, "at", t.X, t.Y)
-			case *sdl.MouseButtonEvent:
+			case sdl.MouseButtonEvent:
 				if t.State == sdl.PRESSED {
 					fmt.Println("Mouse", t.Which, "button", t.Button, "pressed at", t.X, t.Y)
 				} else {
 					fmt.Println("Mouse", t.Which, "button", t.Button, "released at", t.X, t.Y)
 				}
-			case *sdl.MouseWheelEvent:
+			case sdl.MouseWheelEvent:
 				if t.X != 0 {
 					fmt.Println("Mouse", t.Which, "wheel scrolled horizontally by", t.X)
 				} else {

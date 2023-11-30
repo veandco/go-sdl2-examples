@@ -126,9 +126,9 @@ func main() {
 		for event = sdl.PollEvent(); event != nil; event =
 			sdl.PollEvent() {
 			switch t := event.(type) {
-			case *sdl.QuitEvent:
+			case sdl.QuitEvent:
 				running = false
-			case *sdl.MouseMotionEvent:
+			case sdl.MouseMotionEvent:
 
 				xrot = float32(t.Y) / 2
 				yrot = float32(t.X) / 2

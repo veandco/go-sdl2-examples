@@ -25,9 +25,9 @@ func run() (err error) {
 	for running {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
-			case *sdl.QuitEvent:
+			case sdl.QuitEvent:
 				running = false
-			case *sdl.KeyboardEvent:
+			case sdl.KeyboardEvent:
 				keyCode := t.Keysym.Sym
 				keys := ""
 

@@ -214,10 +214,10 @@ func SDL_main() {
 	for e.Running() {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
-			case *sdl.QuitEvent:
+			case sdl.QuitEvent:
 				e.Quit()
 
-			case *sdl.MouseButtonEvent:
+			case sdl.MouseButtonEvent:
 				e.Sound.Play(2, 0)
 				if t.Type == sdl.MOUSEBUTTONDOWN && t.Button == sdl.BUTTON_LEFT {
 					alpha = 255
@@ -235,7 +235,7 @@ func SDL_main() {
 					}
 				}
 
-			case *sdl.KeyboardEvent:
+			case sdl.KeyboardEvent:
 				if t.Keysym.Scancode == sdl.SCANCODE_ESCAPE || t.Keysym.Scancode == sdl.SCANCODE_AC_BACK {
 					e.Quit()
 				}

@@ -72,7 +72,7 @@ func run() int {
 		sdl.Do(func() {
 			for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 				switch event.(type) {
-				case *sdl.QuitEvent:
+				case sdl.QuitEvent:
 					runningMutex.Lock()
 					running = false
 					runningMutex.Unlock()

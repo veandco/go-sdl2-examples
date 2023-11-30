@@ -29,20 +29,20 @@ func run() (err error) {
 	for running {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
-			case *sdl.QuitEvent:
+			case sdl.QuitEvent:
 				running = false
-			case *sdl.JoyAxisEvent:
+			case sdl.JoyAxisEvent:
 				fmt.Printf("[%d ms] JoyAxis\ttype:%d\twhich:%c\taxis:%d\tvalue:%d\n",
 					t.Timestamp, t.Type, t.Which, t.Axis, t.Value)
-			case *sdl.JoyBallEvent:
+			case sdl.JoyBallEvent:
 				fmt.Println("Joystick", t.Which, "trackball moved by", t.XRel, t.YRel)
-			case *sdl.JoyButtonEvent:
+			case sdl.JoyButtonEvent:
 				if t.State == sdl.PRESSED {
 					fmt.Println("Joystick", t.Which, "button", t.Button, "pressed")
 				} else {
 					fmt.Println("Joystick", t.Which, "button", t.Button, "released")
 				}
-			case *sdl.JoyHatEvent:
+			case sdl.JoyHatEvent:
 				position := ""
 
 				switch t.Value {
@@ -67,13 +67,13 @@ func run() (err error) {
 				}
 
 				fmt.Println("Joystick", t.Which, "hat", t.Hat, "moved to", position, "position")
-			case *sdl.JoyDeviceAddedEvent:
+			case sdl.JoyDeviceAddedEvent:
 				// Open joystick for use
 				joysticks[int(t.Which)] = sdl.JoystickOpen(int(t.Which))
 				if joysticks[int(t.Which)] != nil {
 					fmt.Println("Joystick", t.Which, "connected")
 				}
-			case *sdl.JoyDeviceRemovedEvent:
+			case sdl.JoyDeviceRemovedEvent:
 				if joystick := joysticks[int(t.Which)]; joystick != nil {
 					joystick.Close()
 				}
